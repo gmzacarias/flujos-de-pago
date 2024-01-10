@@ -7,6 +7,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     if (topic === "merchant_order") {
         const order = await getMerchantOrderId({ merchantOrderId: id as string | number })
         // res.send(order)
+        console.log(order.order_status)
         if (order.order_status === "paid") {
             const orderId = order.external_reference
             const myOrder = new Order(orderId)
