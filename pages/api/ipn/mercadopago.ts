@@ -9,15 +9,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         const { order_status, external_reference } = order
         const orderStatus = order_status
         const orderId = external_reference
-        console.log(orderStatus)
+        // console.log(orderStatus)
         if (orderStatus === "paid") {
             const myOrder = new Order(orderId)
             await myOrder.pull()
-            console.log(myOrder.data.status)
+            // console.log(myOrder.data.status)
             myOrder.data.status = "closed"
             await myOrder.push()
             //send email tu pago fue confirmado
             //sendemail interno, alguien compro algo
+            console.log("todo bien?")
             res.send({ message: "ok" })
         }
     } else {
