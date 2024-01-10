@@ -29,8 +29,8 @@ async function postHandler(req: NextApiRequest, res: NextApiResponse, token) {
         body:
         {
             external_reference: order.id,
-            // notification_url: "https://flujos-de-pago.vercel.app/api/ipn/mercadopago",
-            notification_url:"https://webhook.site/dd8f3342-dfa2-4b32-bde9-ced10ce01539",
+            notification_url: "https://flujos-de-pago.vercel.app/api/ipn/mercadopago",
+            // notification_url:"https://webhook.site/dd8f3342-dfa2-4b32-bde9-ced10ce01539",
             items: [
                 {
                     title: product.title,
