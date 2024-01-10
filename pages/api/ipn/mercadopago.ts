@@ -4,19 +4,21 @@ import { Order } from "lib/models/order"
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
     const { id, topic } = req.query
-    if (topic == "merchant_order") {
+    if (topic === "merchant_order") {
         const order = await getMerchantOrderId({ merchantOrderId: id as string | number })
-        // res.send(order)
-        console.log(order.order_status)
-        if (order.order_status == "paid") {
-            const orderId = order.external_reference
+        const { order_status, external_reference } = order
+        const orderStatus = order_status
+        const orderId = external_reference
+        console.log(orderStatus)
+        if (orderStatus === "paid") {
             const myOrder = new Order(orderId)
-            myOrder.pull()
+            await myOrder.pull()
+            console.log(myOrder.data.status)
             myOrder.data.status = "closed"
             await myOrder.push()
             //send email tu pago fue confirmado
             //sendemail interno, alguien compro algo
-            res.send("ok")
+            res.send({ message: "ok" })
         }
     } else {
         console.error("hubo un error")
