@@ -39,7 +39,7 @@ export async function sendCode(email: string) {
     auth.data.code = code
     auth.data.expire = expirar
     await auth.push()
-    console.log("email enviado a "+email+" con codigo:"+ auth.data.code)
+    console.log("email enviado a " + email + " con codigo:" + auth.data.code)
     return true
 }
 
